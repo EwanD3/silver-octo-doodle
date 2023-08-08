@@ -10,6 +10,12 @@ import (
 
 type Input struct {
 	Sentence string
+	Key      string
+}
+
+type Document struct {
+	sentences []string
+	key       string
 }
 
 func splitStringWithRegex(input, pattern string) []string {
@@ -27,11 +33,18 @@ func getTerms(input Input) []string {
 	return tokens
 }
 
+func getDocument(input Input) Document {
+	return Document{
+		sentences: getTerms(input),
+		key:       input.Key,
+	}
+}
+
 func main() {
 	inputs := getInputs("data/sentences.json")
 	for _, input := range inputs {
-		terms := getTerms(input)
-		fmt.Println(terms[0])
+		document := getDocument(input)
+		fmt.Println(document.key)
 	}
 }
 
